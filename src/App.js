@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="App">
       <h1>Hello js</h1>
+      <h2>Hello React </h2>
       <Router>
         <Routes>
           <Route />
