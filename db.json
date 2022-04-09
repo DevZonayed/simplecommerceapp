@@ -1,0 +1,24 @@
+{
+  "User": [
+    {
+      "id": 1,
+      "user": "zonayed",
+      "name": "Zonayed Ahamad",
+      "phone": "0177255512",
+      "email": "zonayed320@gmail.com",
+      "gender": "male",
+      "password": "zonayed@@",
+      "active": false
+    },
+    {
+      "id": 2,
+      "user": "sabbir",
+      "name": "Sabbir Hossain",
+      "phone": "0177255512",
+      "email": "zonayed320@gmail.com",
+      "gender": "male",
+      "password": "sabbir@@",
+      "active": false
+    }
+  ]
+}

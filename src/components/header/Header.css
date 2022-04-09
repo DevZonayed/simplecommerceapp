@@ -1,0 +1,26 @@
+/* Header style start here */
+
+.header {
+  border-bottom: 1px solid #ddd;
+  background-color: var(--header-bg);
+}
+
+/* Logo Srtyle start here */
+.logo img {
+  width: 150px;
+}
+.menu {
+  margin: 0;
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+}
+.menu li {
+  padding: 10px 20px;
+  color: #0088ed;
+  cursor: pointer;
+}
+.menu li a {
+  text-decoration: none;
+  font-weight: 600;
+}
