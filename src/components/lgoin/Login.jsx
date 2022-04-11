@@ -1,26 +1,73 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { sentusertolocal } from "../verify/Verify";
 import "./Login.css";
 const Login = () => {
+  /**
+   * This states for confirm user
+   */
   const [isUser, setisUser] = useState(false);
-  const [usersend, setusersend] = useState({
-    mail: "",
-  });
+  /**
+   * This states for Send User data to localhost
+   */
+  const [usersend, setusersend] = useState();
+
+  /**
+   * This States for get value from Login Field
+   */
   const [userData, setUserData] = useState({
     user: "",
     password: "",
   });
-
+  /**
+   * This function for login button effect
+   * @param {*} e
+   */
+  //This script for redirect after login
+  let navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     if (isUser === true) {
-      swal("This is a valid user");
+      swal({
+        title: "Login Approved",
+        buttons: false,
+        icon: "success",
+        timer: 2000,
+      });
+      sentusertolocal("user", usersend);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } else {
-      swal("Accaunt doesn't exits");
+      swal({
+        title: "Please enter Valid Data",
+        icon: "error",
+        buttons: false,
+        timer: 3000,
+      });
     }
   };
 
+  /**
+   * This function for password visibility
+   */
+  const [passType, setPassType] = useState("password");
+  const [pastoggle, setPassToggle] = useState(false);
+  const passvisibility = () => {
+    setPassToggle((value) => !value);
+  };
+  useEffect(() => {
+    if (pastoggle === true) {
+      setPassType("text");
+    } else {
+      setPassType("password");
+    }
+  }, [pastoggle]);
+  /**
+   * This function for get data from server
+   */
   useEffect(() => {
     axios
       .get(
@@ -33,9 +80,7 @@ const Login = () => {
             exatuser.password === userData.password
           ) {
             setisUser(true);
-            setusersend({
-              mail: exatuser.email,
-            });
+            setusersend(exatuser);
           }
         });
       })
@@ -44,6 +89,9 @@ const Login = () => {
       });
   }, [userData]);
 
+  /**
+   * Login Page JSX Start Here
+   */
   return (
     <div>
       <div className="login-container">
@@ -68,12 +116,13 @@ const Login = () => {
               <div className="password my-3">
                 <label htmlFor="password">Input tour password</label>
                 <input
+                  onDoubleClick={passvisibility}
                   onChange={(e) =>
                     setUserData({ ...userData, password: e.target.value })
                   }
                   id="password"
                   className="form-control form-control-sm"
-                  type="text"
+                  type={passType}
                 />
               </div>
               <div className="submit my-3">
